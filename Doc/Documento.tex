@@ -1,0 +1,436 @@
+\documentclass[12pt, letterpaper, oneside]{book}  
+\usepackage[spanish, es-tabla, es-lcroman]{babel}
+\usepackage[top=2.5cm, bottom=2.5cm, left=3cm, right=2cm]{geometry}
+\usepackage[utf8]{inputenc} 
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{dsfont}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{etoolbox}
+\usepackage{titlesec}
+\usepackage{blindtext}
+\usepackage{multirow}
+\usepackage{pdfpages}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{pgfplots}
+\usepackage{rotating}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{paralist}
+\usepackage{longtable}
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{epigraph}
+\usepackage{setspace}
+\onehalfspacing
+\decimalpoint
+\usepackage[comma, square, sort, numbers]{natbib}
+\usepackage[font=small,labelfont=bf]{caption}
+\renewcommand{\sin}{\sen}
+\newcommand*{\unnref}[1]{\hyperref[{#1}]{\nameref*{#1}}}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{literate=
+	{á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+	{Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+	{à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+	{À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+	{ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+	{Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+	{â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+	{Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+	{Ã}{{\~A}}1 {ã}{{\~a}}1 {Õ}{{\~O}}1 {õ}{{\~o}}1
+	{œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+	{ű}{{\H{u}}}1 {Ű}{{\H{U}}}1 {ő}{{\H{o}}}1 {Ő}{{\H{O}}}1
+	{ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+	{€}{{\euro}}1 {£}{{\pounds}}1 {«}{{\guillemotleft}}1
+	{»}{{\guillemotright}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1
+}
+\lstset{ 
+	backgroundcolor=\color{white},
+	basicstyle=\footnotesize,
+	breakatwhitespace=false,
+	breaklines=true,
+	captionpos=b,
+	commentstyle=\color{mygreen},
+	deletekeywords={...},
+	escapeinside={\%*}{*)},
+	extendedchars=true,
+	firstnumber=1,
+	frame=single,
+	keepspaces=true,
+	keywordstyle=\color{blue},
+	language=Python,
+	morekeywords={*,...},
+	numbers=left,
+	numbersep=5pt,
+	numberstyle=\tiny\color{mygray},
+	rulecolor=\color{black},
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	stepnumber=1,
+	stringstyle=\color{mymauve},
+	tabsize=2,
+	title=\lstname
+}
+\lstset{ 
+	backgroundcolor=\color{white},
+	basicstyle=\footnotesize,
+	breakatwhitespace=false,
+	breaklines=true,
+	captionpos=b,
+	commentstyle=\color{mygreen},
+	deletekeywords={...},
+	escapeinside={\%*}{*)},
+	extendedchars=true,
+	firstnumber=1,
+	frame=single,
+	keepspaces=true,
+	keywordstyle=\color{blue},
+	language=sh,
+	morekeywords={*,...},
+	numbers=left,
+	numbersep=5pt,
+	numberstyle=\tiny\color{mygray},
+	rulecolor=\color{black},
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	stepnumber=1,
+	stringstyle=\color{mymauve},
+	tabsize=2,
+}
+\lstset{ 
+	backgroundcolor=\color{white},
+	basicstyle=\footnotesize,
+	breakatwhitespace=false,
+	breaklines=true,
+	captionpos=b,
+	commentstyle=\color{mygreen},
+	deletekeywords={...},
+	escapeinside={\%*}{*)},
+	extendedchars=true,
+	firstnumber=1,
+	frame=single,
+	keepspaces=true,
+	keywordstyle=\color{blue},
+	language=c++,
+	morekeywords={*,...},
+	numbers=left,
+	numbersep=5pt,
+	numberstyle=\tiny\color{mygray},
+	rulecolor=\color{black},
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	stepnumber=1,
+	stringstyle=\color{mymauve},
+	tabsize=2,
+}
+\setlength\epigraphwidth{.5\textwidth}
+\setlength\epigraphrule{0pt}
+
+\hypersetup{colorlinks=true, linkcolor=black, citecolor=black, urlcolor=black}
+\renewcommand{\labelitemi}{$\blacktriangleright$}
+\renewcommand{\labelitemii}{$\vartriangleright$}
+\definecolor{gray75}{gray}{0.75}
+\titlespacing*{\chapter}{0pt}{-15pt}{20pt}	
+\newcommand{\hsp}{\hspace{20pt}}
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter{.}\hsp}{0pt}{\Huge\bfseries}
+\fancypagestyle{plain}
+{
+	\fancyhf{}
+	\rhead{\includegraphics[width=0.75cm]{./Figuras/UPIIZ}}
+	\chead{IPN-UPIIZ}
+	\lhead{\includegraphics[width=0.75cm]{./Figuras/IPN}}
+	\rfoot{\thepage}
+	\renewcommand{\headrulewidth}{0.4pt}
+	\renewcommand{\footrulewidth}{0pt}
+}
+\pagestyle{fancy}
+	\fancyhf{}
+	\rhead{\includegraphics[width=0.75cm]{./Figuras/UPIIZ}}
+	\chead{IPN-UPIIZ}
+	\lhead{\includegraphics[width=0.75cm]{./Figuras/IPN}}
+	\rfoot{\thepage}
+	\renewcommand{\headrulewidth}{0.4pt}
+	\renewcommand{\footrulewidth}{0pt}
+
+\begin{document}
+	\thispagestyle{empty}
+	\includepdf[pages=-]{./Portada/Portada.pdf}
+	\thispagestyle{empty}
+	\includepdf[pages=-]{./Portada2/Portada2.pdf}
+	\thispagestyle{empty}
+	\begin{center}
+		{\bf Autorización de uso de obra\\
+			INSTITUTO POLITÉCNICO NACIONAL\\
+			Presente}\\
+	\end{center}
+	
+	Bajo protesta de decir la verdad el que suscribe, {\bf Claudio Iván Esparza Castañeda}, estudiante del programa de {\bf Ingeniería Mecatrónica}, con número de boleta {\bf 2016670022}, adscrito a la {\bf Unidad Profesional Interdisciplinaria de Ingeniería Campus Zacatecas}; manifiesto ser autor y titular de los derechos morales y patrimoniales de la obra titulada {\bf ``Implementación de algoritmos de conducción autónoma en vehículos a escala 1:10''}, en adelante el ``Trabajo de Titulación'' y de la cual se adjunta copia, por lo que por medio del presente y con fundamento en el artículo 27 fracción II, inciso b) de la Ley Federal del Derecho de autor, otorgamos al Instituto Politécnico Nacional, en adelante IPN, autorización no exclusiva para comunicar y exhibir públicamente total o parcialmente en medios digitales el ``Trabajo de Titulación'' por un periodo de tiempo indefinido contado a partir de la fecha de la presente autorización, dicho periodo se renovará automáticamente en caso de no dar aviso expreso a el IPN de su terminación.
+	\par En virtud de lo anterior, el IPN deberá reconocer en todo momento mi autoría en el ``Trabajo de Titulación''.
+	\par Adicionalmente, y en mi calidad de autor y titular de los derechos morales y patrimoniales de el ``Trabajo de Titulación'', manifiesto que la misma es original y que la presente autorización no contraviene ninguna otorgada por los suscritos respecto del ``Trabajo de Titulación'', por lo que deslindo de toda responsabilidad a el IPN en caso de que el contenido de el ``Trabajo de Titulación'' o la autorización concedida afecte o viole derechos autorales, industriales, secretos industriales, convenios o contratos de confidencialidad o en general cualquier derecho de propiedad intelectual de terceros y asumo las consecuencias legales y económicas de cualquier demanda o reclamación que pueda derivarse del caso.
+	\begin{flushright}
+		Zacatecas, Zac., a 14 de Mayo del 2021
+	\end{flushright}
+	\begin{center}
+		Atentamente
+		\vspace*{1cm}\\
+		\rule{7cm}{1pt}\\
+		Claudio Iván Esparza Castañeda
+	\end{center}
+	\newpage
+	\thispagestyle{empty}
+	\epigraph{'má, te dedico este Trabajo Terminal y un verso: {\it<<Te lo agradezco, madre: hay que seguir levantándose temprano para esperar diariamente la vida>>.}}{Estés donde estés, siempre estarás aquí.}
+	\newpage
+	\thispagestyle{empty}
+	Estoy agradecido por toda la eternidad con mis padres Juan y María, quienes me han apoyado de manera incondicional durante toda mi etapa de estudiante y en general en mi vida. Quiero extender este agradecimiento a mis hermanos Karen y Abraham, tíos y tías, primas y primos, abuelos y abuelas.
+	\par Levanto la voz en un {\it Huelum} a mi {\it alma mater} el Instituto Politécnico Nacional y otro a la Unidad Profesional Interdisciplinaria de Ingeniería Campus Zacatecas, por brindarme los conocimientos que permitieron este proyecto, mismos estudios que después serán mi bastión durante toda mi vida profesional, por formarme cada día para así poder poner la técnica al servicio de la patria. Un {\it Huelum} a mis maestros, por ser los proveedores directos de esos conocimientos. Un {\it Huelum} a mis asesores, Flabio y Carlos Daniel, por resolver mis infinitas dudas y orientarme a lo largo del desarrollo de este proyecto. Gracias totales.
+	\par Un último {\it Huelum} a mis compañeros a quienes ahora considero como mis amigos al transitar a la par el camino durante estos años: Ronaldo, Miguel, Eduardo, Julio, Ulises, Daniel; el mayor de los éxitos, colegas. A Alejandra, que desde la preparatoria me ha impulsado a seguir creciendo, un abrazo y muchas gracias. A los colegas divulgadores del {\it ZigZag}: Iván, Blanca, Corina, Juan Carlos, Armando, Alondra, Jimena, Pepe, Diana, Jonathan, Osvaldo, Victoria, Mayra, etc.; que siempre han propiciado mi aprendizaje a través de sus distintos puntos de vista. A mis amigos del {\it CEBAARE}: Gandhi, Joaquín, Brandon, Isaac, Alan, Ramcés, Gerardo, Misael y Gechén (el honorario); sí vamos a poder y estamos pudiendo. A todos ellos, gracias.
+	\par ¡Politécnico, gloria!
+	\chapter*{Resumen}
+	\label{cap:res}
+	\addcontentsline{toc}{chapter}{Resumen}
+	\pagenumbering{roman}
+	En este documento se reúne el proceso de desarrollo de un prototipo de vehículo autónomo a escala 1:10. El prototipo se desplaza sobre una pista de pruebas que simula un entorno urbano. La plataforma robótica está compuesta por un chasís comercial que lleva sobre sí un sistema de visión artificial basado en un sensor tipo {\it Kinect}, mismo que a su vez se apoya en una mini-computadora a bordo para procesar la información visual recibida, permitiéndole reconocer de esta manera las características de las líneas del carril sobre el que se desplaza el vehículo, además de realizar el reconocimiento de las señales de Alto, vuelta a la Izquierda, vuelta a la Derecha y la identificación del color en las luces de un semáforo; permitiéndole controlar al vehículo permaneciendo dentro del carril y actuar de acuerdo con las señales de tránsito detectadas. Por las características de la computadora, no es posible enviar las señales de PWM a los motores de manera directa con la misma, por lo que para realizar esta acción la computadora se apoya en un sistema basado en microcontrolador.
+	\section*{Palabras clave}
+	\label{sec:palcla}
+	\addcontentsline{toc}{section}{Palabras clave}
+	Robótica Móvil, Navegación Autónoma, Visión Artificial, Control Visual.
+	\chapter*{Abstract}
+	\label{cap:abs}
+	\addcontentsline{toc}{chapter}{Abstract}
+	This document is a compilation of the development process for a 1:10 scaled autonomous car. The prototype moves on a test track that simulates a urban environment. The robotic platform is made up by a comercial chassis which carries on itself a {\it Kinect} type based computer vision system, the images taken by the RGB-D sensor are processed by an on board mini-computer, recognizing by this way the Stop, turn Left, turn Right signs and the light color identification in a traffic light; allowing it control the vehicle keeping the lane and acting according to the road signs detected. By the computer features, isn't possible send the PWM signals directly by itself, this is the reason why a microcontroller-based system helps the computer in this action.
+	\section*{Keywords}
+	\label{sec:kw}
+	\addcontentsline{toc}{section}{Keywords}
+	Mobile Robotics, Autonomous Navigation, Computer Vision, Visual-Feedback Control.
+	\renewcommand{\listfigurename}{Lista de Figuras}
+	\renewcommand{\listtablename}{Lista de Tablas}
+	\renewcommand{\contentsname}{Índice General}
+	\renewcommand*{\lstlistlistingname}{Lista de Códigos}
+	\tableofcontents
+	\cleardoublepage
+	\addcontentsline{toc}{chapter}{Lista de Figuras}
+	\listoffigures
+	\cleardoublepage
+	\addcontentsline{toc}{chapter}{Lista de Tablas} 
+	\listoftables
+	\cleardoublepage
+	\addcontentsline{toc}{chapter}{Lista de Códigos} 
+	\lstlistoflistings
+	\chapter*{Introducción}
+	\label{cap:intro}
+	\addcontentsline{toc}{chapter}{Introducción}
+	\pagenumbering{arabic}
+	Uno de los problemas principales que existe dentro del campo de la robótica móvil es la navegación autónoma. Los sistemas capaces de efectuar una navegación autónoma robusta y eficiente tiene varias aplicaciones tanto industriales como domésticas, siendo el desarrollo de vehículos totalmente autónomos una de las aplicaciones con mayores avances y expectativas. Los principales progresos realizados en esta área de investigación se deben a las universidades y los centros de desarrollo de las compañías automotrices, en gran parte ha sido posible gracias a la integración de una gran variedad de sensores; entre estos, los sistemas de visión artificial han cobrado protagonismo por su capacidad de proveer una considerable cantidad de información a un costo relativamente bajo; gracias a los mismos es que se han desarrollado técnicas de control con realimentación visual, mapeo y reconstrucción de espacios y odometría visual.
+	\par Los vehículos autónomos se encontraban relegados a la ciencia ficción. Hasta hace poco comenzaron a salir de las novelas y películas de ciencia ficción para pasar al escenario de la realidad. Enumerando de manera rápida algunos de los principales avances en este campo remiten al {\it DARPA Grand Challenge} en marzo de 2004, donde vehículos desarrollados por un gremio conformado por centros de investigación de universidades, fabricantes de autos y hasta aficionados se reunieron para desarrollar un vehículo que sin conductor pudiera completar una ruta de 150 millas sin intervención humana; sin embargo ninguno de los vehículos participantes completó el desafío; la historia cambió para la segunda edición de este reto en el mes de octubre del 2005, donde cinco de los vehículos competidores completaron de manera exitosa 132 millas del recorrido.
+	\par Durante los años que han transcurrido desde estos acontecimientos, la cantidad de estudios relacionados con la conducción autónoma ascendió, teniendo como panorama actual a una gran cantidad de estos vehículos que están utilizando a las carreteras y a las ciudades como pista de pruebas. En varias ciudades del mundo los vehículos autónomos circulan a la par que se mejoran las tecnologías que involucran. Parte de los más enérgicos competidores son las compañías automotrices como Tesla, Ford o Chevrolet. Impulsados en gran medida por estas compañías, existen competencias similares al DARPA Grand Challenge enfocadas a promover el desarrollo de vehículos autónomos a pequeña escala, mismos que pretenden emular las prestaciones de los vehículos de tamaño real; entre los beneficios de utilizar sistemas a pequeña escala por sobre los sistemas a tamaño completo, está de más mencionar el ahorro de los costos relacionados al propio vehículo, los sistemas sensoriales y de cómputo a bordo, y también al escenario de pruebas que es necesario. 
+	\par El vehículo autónomo del que es objeto este Trabajo Terminal fue motivado en primer lugar por el {\it AutoNOMOS Model}, desarrollado por el Dr. Raúl Rojas y su equipo de la {\it Freie Universität Berlin}, o los construidos por el {\it MIT} o la {\it University of Pennsylvania}, entre tantos otros que se expolorarán en el el \autoref{cap:eda}. Este trabajo aborda la navegación autónoma de un vehículo a escala 1:10 de manera reactiva, lo que significa que el carro pueda permanecer en el carril por el que se desplaza y cumplir con la identificación de los señalamientos de tránsito gracias a la realimentación visual provista por el sistema de visión presente en el robot, que a su vez se apoya en la computadora a bordo para los cálculos y el procesamiento de la información recibida.
+	\par Antes de describir la estructura general de este documento, se aclara por adelantado que a este robot también se denominará de de diferentes maneras a lo largo del documento, como RMR\footnote{Robot Móvil con Ruedas}, plataforma, vehículo, carro o coche.
+	\par Los contenidos que proceden a esta Introducción se dan de la siguiente manera: En dos capítulos no numerados permanecen inmutables desde el Protocolo de Investigación los \unnref{cap:obj} y la \unnref{cap:jus}. En el \autoref{cap:mt} se destaca la limitación teórica que da sustento al trabajo, tales como la robótica móvil, las perspectivas de la navegación autónoma, la visión por computadora y las técnicas de control aplicadas a la navegación autónoma. El \autoref{cap:eda} trata acerca de los estudios que anteceden en tiempo y técnica a este Trabajo Terminal, y que sirven como base de lo aquí desarrollado. A lo largo del \autoref{cap:pdp} se muestra una perspectiva de lo que en primera instancia se ha planteado  lograr con este trabajo, explicando las tecnologías que a priori se pensó emplear y se da una primera propuesta de la pista de pruebas. En el \autoref{cap:des} se da una extensa descripción de la metodología y los trabajos realizados para lograr concluir de manera satisfactoria el trabajo, tomando como elementos al modelo matemático del sistema, las propuestas de control, la selección de los componentes, el ensamblaje de la plataforma y también la construcción de la pista de pruebas, quedando como elemento final de este capítulo la descripción e implementación de los algoritmos de navegación autónoma que forman parte del proyecto. En el \autoref{cap:resul} se realiza un análisis y discusión de los resultados obtenidos, con lo cual de manera crítica se permitirá desembocar en el \autoref{cap:con}, donde se dan conclusiones generales acerca de los resultados y se plantean nuevos retos como posible trabajo futuro. Como adendum se incluye aquel material adicional que fue de ayuda y que por su valor documental es importante su incorporación para futuras referencias bibliográficas.
+	\chapter*{Objetivos}
+	\label{cap:obj}
+	\addcontentsline{toc}{chapter}{Objetivos}
+	\section*{Objetivo general}
+	\label{sec:objg}
+	\addcontentsline{toc}{section}{Objetivo general}
+	Implementar algoritmos de visión artificial para la identificación de características del entorno, que serán usadas como realimentación visual en un esquema de control para la navegación de un vehículo autónomo a escala en un escenario urbano simulado.
+	\section*{Objetivos específicos}
+	\label{sec:obje}
+	\addcontentsline{toc}{section}{Objetivos específicos}
+	\begin{itemize}
+		\item Escoger una plataforma robótica de propulsión eléctrica para validar la navegación autónoma del proyecto.
+		\item Seleccionar los algoritmos de visión artificial adecuados para el proyecto.
+		\item Realizar el análisis cinemático del robot móvil para la obtención de parámetros que luego se emplearán en el control del vehículo.
+		\item Diseñar y programar los algoritmos de control visual para su implementación en el robot móvil.
+		\item Usar técnicas de control para regular la velocidad y dirección del vehículo autónomo a escala.
+		\item Emplear la realimentación visual para alcanzar un nivel SAE 3 de automatización\cite{saeTaxonomyDefinitiosTerms2014} en el vehículo a escala.
+		\item Construir un escenario de pruebas para la validación de la plataforma a través de:
+		\begin{itemize}
+			\item Identificar y permanecer en el carril por el que se desplaza.
+			\item Reconocer las señales  de alto, vuelta a la izquierda y vuelta a la derecha en el escenario de pruebas.
+			\item Examinar el color de la luz en un semáforo y reaccionar de manera correcta ante ello.	
+		\end{itemize}
+	\end{itemize}
+	\chapter*{Justificación}
+	\label{cap:jus}
+	\addcontentsline{toc}{chapter}{Justificación}
+	La necesidad principal de la autonomía en la robótica móvil, así como en la industria automotriz, se da cuando un operador humano no puede maniobrar el vehículo de manera directa o teleoperada. Para la conducción autónoma, se pretende reducir el error humano asociado a la conducción.
+	\par En la actualidad, existen cientos de vehículos en fase de pruebas por compañías del ramo automotriz y tecnológico \cite{Autopilot, LookingFurther, WaymoWaymo}. Estas pruebas requieren, en su primera etapa, una ciudad construida con el propósito de afinar las tecnologías antes de llevar el vehículo a las calles de una ciudad real. Los costos del vehículo per se, añadiendo todos los sistemas que lo ayudan a guiarse (cámara monocular o estereoscópica, sensores para la detección de obstáculos, computadora a bordo, etc.), se ven incrementados por el costo que representa construir un escenario, con las características de una ciudad, que funcione con el único propósito de proceder con la realización de las pruebas antes de llevar el vehículo a una urbe, con todo lo que esto representa. El surgimiento de competencias para la validación de los sistemas automotrices inteligentes \cite{GrandChallengeAutonomous}, aunado al interés de las gigantes automotrices en las competiciones de vehículos autónomos a escala, es un indicativo de que es necesario optimizar los algoritmos empleados, teniendo como opción realizarlos antes en un entorno simulado y después en la ciudad. Es por esta situación que se tiene el propósito de cambiar el vehículo de tamaño real por un vehículo a pequeña escala, que pueda emplear los sistemas antes mencionados, en un esquema de control con realimentación visual, sobre un escenario de pruebas.
+	\chapter{Marco teórico}
+	\label{cap:mt}
+	\input{./Caps/Marco.tex}
+	\chapter{Estado del arte}
+	\label{cap:eda}
+	\input{./Caps/Arte.tex}
+	\chapter{Planteamiento del problema}
+	\label{cap:pdp}
+	\input{./Caps/Problema.tex}
+	\chapter{Desarrollo del trabajo}
+	\label{cap:des}
+	\input{./Caps/Desarrollo.tex}
+	\chapter{Análisis y validación de resultados}
+	\label{cap:resul}
+	\input{./Caps/Resultados.tex}
+	\chapter{Conclusiones y trabajo futuro}
+	\label{cap:con}
+	\input{./Caps/Conclusiones.tex}
+	\addcontentsline{toc}{chapter}{Bibliografía}
+	\bibliographystyle{IEEEtran}
+	\bibliography{Biblio}
+	\label{chap:Biblio}
+	\appendix
+	\addcontentsline{toc}{part}{Anexos}
+	\chapter{Hojas de datos y manuales}
+	\label{chap:datasheet}
+	\vspace*{-0.5cm}
+	\section{Manual de usuario del ESC}
+	\label{sec:ESC}
+	\vspace*{-1cm}
+	\begin{figure}[htbp!]
+		\centering
+		\includegraphics[width=0.8\textwidth, angle=180]{./Figuras/001}
+	\end{figure}
+	\begin{figure}[htbp!]
+		\centering
+		\includegraphics[width=0.9\textwidth, angle=180]{./Figuras/002}
+	\end{figure}
+	\newpage 
+	\section{Manual de usuario del vehículo a escala}
+	\label{sec:vrx}
+	\vspace*{-0.3cm}
+	\begin{figure}[htbp!]
+		\centering
+		\includegraphics[width=0.8\textwidth, angle=180]{./Figuras/003}
+	\end{figure}
+	\newpage
+	\section{GPIO de la computadora Rock64}
+	\label{sec:pi}
+	\begin{figure}[htbp!]
+		\centering
+		\includegraphics[width=0.8\textwidth]{./Figuras/Pi-2}
+	\end{figure}
+	\begin{figure}[htbp!]
+		\centering
+		\includegraphics[width=0.8\textwidth]{./Figuras/Pi-5}
+	\end{figure}
+	\chapter{Planos de construcción}
+	\label{chap:plan}
+	\vspace*{-0.5cm}
+	\section{Chasís superior}
+	\label{sec:chass}
+	\vspace*{-0.5cm}
+	\begin{figure}[htbp!]
+		\centering
+		\includegraphics[width=1.1\textwidth, angle=270]{./Figuras/Placa.PDF}
+	\end{figure}
+	\chapter{Puesta a punto de la computadora Rock64}
+	\label{cap:pap}
+	Para este proceso se requerirá de una PC y la Rock64; este apéndice desarrolla los pasos necesarios para transferir la imagen del sistema operativo desde la PC a la Rock64 y posteriormente instalar en ésta los paquetes necesarios para el desarrollo del proyecto.
+	\section{Instalación del sistema operativo en la memoria microSD}
+	La compañía Pine64 provee una herramienta para gabar el sistema operativo elegido en la memoria microSD. Una vez instalado el programa en la PC desde el repositorio\footnote{https://github.com/pine64dev/PINE64-Installer}, en el programa se elige para cuál producto se hará el proceso y después será necesario elegir el sistema operativo, resultando la pantalla siguiente. 
+	\begin{figure}[htbp!]
+		\centering
+		\includegraphics[width=0.8\textwidth]{./Figuras/Etcher}
+		\caption{Instalación del sistema operativo en la memoria microSD}
+		\label{fig:etcher}
+	\end{figure}
+	\par Una vez realizado esto, se elige la ruta de la memoria microSD a grabar y se presiona el botón Flash! Para este proyecto la distribución elegida es ARMbian Bionic Desktop y este proceso toma algunos minutos en completarse, tras lo cual se puede proceder a conectar la memoria microSD en la Rock64, con lo que en el primer arranque se obtendrá la pantalla de la figura \ref{fig:ARMbian}.
+	\begin{figure}[htbp!]
+		\centering
+		\includegraphics[width=0.8\textwidth]{./Figuras/Boot}
+		\caption{Pantalla del ARMbian en el primer arranque}
+		\label{fig:ARMbian}
+	\end{figure}
+	\par Tras ingresar credenciales se inicia el sistema operativo en modo gráfico (porque esta opción fue la seleccionada), y ahora se pueden realizar los siguientes pasos para la puesta a punto de la tarjeta.
+	\section{Instalación de dependencias}
+	La siguiente serie de instrucciones se realiza en la terminal de la computadora. Se puede ingresar a ella navegando con ayuda del ratón y también es posible tecleando Ctrl+Alt+T. Una vez abierta teclear los siguiente comandos en orden.
+	\lstset{language=bash}	
+	\begin{lstlisting}[frame=single]
+	sudo apt-get purge galculator* leafpad* geany* mirage* hexchat* pulseaudio* atril* orage* 
+	sudo apt-get update
+	sudo apt-get upgrade
+	sudo apt-get dist-upgrade
+	sudo apt-get install emacs
+	sudo apt-get install tightvncserver install openjdk-8-jdk
+	sudo apt-get install 12c-tools libc6-dev man manpages manpages-dev libi2c-dev python-smbus libasound2-dev libasound2-doc sqlite2 libsqlite3-dev sqlite3-doc zlib1g-dev libX11-dev libxcb-doc less gnuplot ntp bc
+	sudo apt-get install git libssl-dev libusb-1.0.0-dev libudev-dev pkg-config libgtk-3-dev libglfw3-dev freeglut3-dev make cmake cmake-gui build-essential unzip libxmu-dev libxi-dev
+	sudo apt-get install libjpeg-dev libpng-dev libtiff-dev libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libxvidcore-dev libx264-dev
+	sudo apt-get install libgtk-3-dev
+	sudo apt-get install libatlas-base-dev gfortran
+	sudo apt-get install python3-dev
+	wget https://bootstrap.pypa.io/get-pip.py
+	sudo python3 get-pip.py
+	sudo pip install virtualenv virtualenvwrapper
+	sudo rm -rf ~/get-pip.py ~/.cache/pip
+	sudo apt-get install libopenni2-dev
+	\end{lstlisting}
+	Después de esto, se ingresa al archivo /.bashrc por medio del editor de texto que se quiera y al final del archivo se escribe el siguiente código:
+	\begin{lstlisting}[frame=single]
+	# virtualenv and virtualenvwrapper
+	export WORKON_HOME=$HOME/.virtualenvs
+	export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+	source /usr/local/bin/virtualenvwrapper.sh
+	\end{lstlisting}
+	Se ejecuta el comando y se configuran nueva dependencias al usar los siguientes comandos
+	\begin{lstlisting}[frame=single]
+	source ~/.bashrc
+	mkvirtualenv cv -p python3
+	workon cv
+	pip install numpy
+	\end{lstlisting}
+	\section{Instalación de LibRealSense}
+	Si se ha descargado y descomprimido previamente la librería, entonces se ejecutan las siguientes órdenes:
+	\begin{lstlisting}[frame=single]
+	cd ~/librealsense
+	sudo ./scripts/setup_udev_rules.sh
+	sudo ./scripts/patch-realsense-ubuntu-lts.sh
+	mkdir build && cd build
+	cmake -D BUILD_OPENNI2_BINDINGS=true -DOPENNI2_DIR=/usr/include/openni2 -DREALSENSE2_DIR=/usr/local/include/librealsense2 -DFORCE_LIBUVC=true ..
+	sudo make uninstall && make clean && make -j4 && sudo make install
+	sudo ldconfig
+	\end{lstlisting}
+	Para esta librería y también para OpenCV, la configuración de la orden cmake se puede realizar también desde la cmake-gui. De la misma manera, el proceo de compilación para ambas librerías es tardado, alrededor de tres horas para ambas.
+	\section{Instalación de OpenCV}
+	\begin{lstlisting}[frame=single]
+	cd ~/opencv
+	mkdir build && cd build
+	cmake -DCMAKE_BUILD_TYPE=RELEASE -DBUILD_EXAMPLES=ON -DCMAKE_INSTALL_PREFIX=/usr/local -DWITH_OPENNI2=true -DWITH_LIBREALSENSE=true ..
+	make -j4
+	sudo make install
+	sudo ldconfig
+	\end{lstlisting}
+	\chapter{Códigos de programación}
+	\label{cap:cod}
+	\section{Simulaciones}
+	\label{sec:csim}
+	\lstinputlisting[language=Python, caption={Programa usado para las simulaciones (Python)}]{./Programas/Simulaciones/PID.py}
+	\newpage
+	\section{Programa del microcontrolador}
+	\label{sec:micro}
+	\lstinputlisting[language=C++, caption={Programa grabado en el microcontrolador (C)}]{./Programas/AVR/Servo.c}
+	\newpage
+	\section{Clase Cámara}
+	\label{sec:cam}
+	\lstinputlisting[language=C++, caption={Clase Cámara, archivo de cabecera (C++)}]{./Programas/Proyecto/include/cam.hpp}
+	\lstinputlisting[language=C++, caption={Clase Cámara, archivo de funciones (C++)}]{./Programas/Proyecto/src/cam.cpp}
+	\section{Clase Control}
+	\label{sec:cont}
+	\lstinputlisting[language=C++, caption={Clase Control, archivo de cabecera (C++)}]{./Programas/Proyecto/include/control.hpp}
+	\lstinputlisting[language=C++, caption={Clase Control, archivo de funciones (C++)}]{./Programas/Proyecto/src/control.cpp}
+	\section{Clase Carro}
+	\label{sec:car}
+	\lstinputlisting[language=C++, caption={Clase Carro, archivo de cabecera (C++)}]{./Programas/Proyecto/include/carro.hpp}
+	\lstinputlisting[language=C++, caption={Clase Carro, archivo de funciones (C++)}]{./Programas/Proyecto/src/carro.cpp}
+	\section{Programa principal}
+	\label{sec:main}
+	\lstinputlisting[language=C++, caption={Programa principal (C++)}]{./Programas/Proyecto/src/main.cpp}
+\end{document}

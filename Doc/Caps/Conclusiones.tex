@@ -1,0 +1,26 @@
+Desde el Protocolo de Investigación se plantearon objetivos cuyo cumplimiento se puede clasificar en cuatro vertientes: cumplido satisfactoriamente, cumplido insatisfactoriamente, cumplido parcialmente y no cumplido. Se puede concluir, después de haber analizando cada uno de los objetivos por separado, lo siguiente:
+\par El objetivo general dice: {\it Implementar algoritmos de visión artificial para la identificación de caracterticas del entorno, que serán usadas como realimentación visual en un esquema de control para la navegación de un vehículo autónomo a escala en un escenario urbano simulado}. Al término de este trabajo terminal se puede concluir que el objetivo ha sido \underline{cumplido satisfacoriamente}, y de él emanan las siguientes conclusiones con respecto a los objetivos específicos.
+\begin{itemize}
+	\item {\it Escoger una plataforma robótica de propulsión eléctrica para validar la navegación autónoma del proyecto.} Este objetivo se \underline{cumplió satisfactoriamente} desde TT1, y se puede realizar esta afirmación ya que para los requerimientos de este proyecto no es necesario contar con un chasís de alta resistencia en diferentes condiciones, tampoco es necesario que pueda desplazarse a altas velocidades, o posea cualidades que le permitan desplazarse en terrenos accidentados. Para este punto sólo es necesario que el vehículo seleccionado sea un vehículo a escala 1:10, por lo que el haber seleccionado una plataforma económica no repercutió en el desarrollo.
+	\item {\it Seleccionar los algoritmos de visión artificial adecuados para el proyecto.} Con relación a este objetivo, se basó el desarrollo en lo encontrado en el Estado del Arte sin ir más allá, por lo que se \underline{cumplió a secas} el objetivo.
+	\item {\it Realizar el análisis cinemático del robot móvil para la obtención de parámetros que luego se emplearán en el control del vehículo.} Como se vio en la Sección \ref{sec:mc}, se esudió el modelo cinemático del vehículo para tomar en cuenta distintos parámetros importantes a tomar en cuenta para el controlador; después vienen las simulaciones donde se comprueba el comportamiento del vehículo al pasar de una configuración inicial a una configuración final con ayuda de un controlador; es por eso que se considera que este objetivo se ha {\it cumplido satisfactoriamente}.
+	\item {\it Diseñar y programar los algoritmos de control visual para su implementación en el robot móvil.}
+	\item {\it Usar técnicas de control para regular la velocidad y dirección del vehículo autónomo a escala.} El producto más importante de estos dos objetivos es el controlador lateral del vehículo que le permite mantenerse en su carril mientras navega en la pista de pruebas,. El objetivo, por tanto, se encuentra \underline{cumplido satisfactoriamente}.
+	\item {\it Emplear la realimentación visual para alcanzar un nivel SAE 3 de automatización \cite{saeTaxonomyDefinitiosTerms2014} en el vehículo a escala.} Con los resultados obtenidos para este proyecto, este objetivo se encuentra \underline{no cumplido}, pues el vehículo no incorpora forma alguna para identificación de obstáculos y no se logra la navegación continua del mismo.
+	\item {\it Construir un escenario de pruebas para la validación de la plataforma a través de: a) Identificar y permanecer en el carril por el que se desplaza; b) Reconocer las eñales de Alto, vuelta a la Izquierda y vuelta a la Derecha en el escenario de pruebas; c) Examinar el color de la luz en un semáforo y reaccionar de manera correcta ante ello.} En la Sección \ref{sec:platpru} se muestra el proceso de construcción de la pista de pruebas, a la vez que los objetivos específicos cuarto y quinto se relacionan con el inciso a) de este objetivo; los incisos b) y c), como se encuentra en el Capítulo \ref{cap:resul}, la localización de los señalamientos sólo es apta para funcionar en condiciones específicas y son susceptibles de cambios ambientales, por lo que se considera que el objetivo ha sido \underline{cumplido de manera instisfactoria.}
+\end{itemize}
+En general, se logró cumplir con los objetivos presentados como retos para la plataforma robótica, de manera que como posible desarrollo posterior se presena a continuación el trabajo futuro.
+\section{Trabajo futuro}
+\label{sec:trafut}
+Las posibles futuras mejoras y adaptaciones a la plataforma robótica se plantean las siguientes:
+\begin{itemize}
+	\item Incorporar nuevos sensores para el vehículo que permitan otorgarle una clasificación de autonomía mayor según \cite{saeTaxonomyDefinitiosTerms2014}.
+	\item Explorar diferentes sistemas de locomoción para las mismas acciones realizadas en este trabajo.
+	\item Buscar nuevos algoritmos de visión artificial que vayan más allá de los tomados del estado del arte.
+	\item Poner en funcionamiento un facsímil de este proyecto sobre ROS.
+	\item Mejorar el controlador implementado en este trabajo.
+	\item Implementar en el robot controladores difusos y de redes neuronales.
+	\item Mejorar la pista de pruebas para que permita al vehículo planear trayectorias.
+	\item Mejorar la pista de pruebas para que permita maniobras grupales (yendo más allá de las individuales tomadas exploradas en este documento).
+	\item Escalar el vehículo en cuanto a comunicación para que pueda permitir las maniobras grupales con varios vehículos.
+\end{itemize}
