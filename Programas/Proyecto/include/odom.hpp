@@ -1,0 +1,22 @@
+#ifndef ODOM_HPP
+#define ODOM_HPP
+
+#define MAX_FRAME 1000
+#define MIN_NUM_CAR 2000
+
+#include <iostream>
+#include <vector>
+#include <opencv2/core.hpp>
+
+class Odom
+{
+public:
+  //  Mat Rf_, Tf_;
+  //double focal=618.72;
+  //Point2d pp(317.6, 238.717);
+  //Mat tray=Mat:zeros(600, 600, CV_8UC3);
+  //void seguirCar(Mat im, Mat im2, vector<Point2f> &ps1, vector<Point2f> &ps2, vector<uchar> estado);
+  //void detectarCar(Mat im, vector<Point2f> &ps1);
+};
+
+#endif

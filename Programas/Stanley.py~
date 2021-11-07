@@ -1,0 +1,258 @@
+# -*- coding: utf-8 -*-
+import numpy as np
+import math
+import matplotlib.pyplot as plt
+from random import random
+
+#Parámetros del vehículo
+LARGO=0.35 #[m]
+ANCHO=0.2 #[m]
+POSEJE=0.08 #Distancia de la parte posterior al eje posterior [m]
+RUE_LAR=0.03 #[m]
+RUE_AN=0.02 #[m]
+HUELLA=0.08 #Separación de las ruedas con las partes laterales [m]
+DEJE=0.2 #Distancia entre ejes [m]
+MAX_ANG=math.radians(45.0) #Máximo ángulo de gobierno [rad]
+MAX_VELANG=math.radians(30.0) #Máxima velocidad para alcanzar el ángulo [rad/s]
+MAX_VEL=5.5/3.6 #Máxima velocidad [m/s]
+MIN_VEL=-2.0/3.6 #Mínima velocidad [m/s]
+MAX_ACE=0.1 #Aceleración máxima [m/s²]
+
+k=0.1
+Kp=1.0
+dt=0.1
+
+class Estado(object):
+    def __init__(self, x=0.0, y=0.0, th=0.0, v=0.0):
+        super(Estado, self).__init__()
+        self.x=x
+        self.y=y
+        self.th=th
+        self.v=v
+
+    def actualizar(self, a, phi):
+        #Aceleración
+        #Orientación de las ruedas
+        phi=np.clip(phi, -MAX_ANG, MAX_ANG)
+        self.x+=self.v*np.cos(self.th)*dt
+        self.y+=self.v*np.sin(self.th)*dt
+        self.th+=self.v/LARGO*np.tan(phi)*dt
+        self.th=normalizar(self.th)
+        self.v+=a*dt
+
+def PID(obj, act):
+    #Velocidad objetivo
+    #Velocidad actual
+    return Kp*(obj-act)
+
+def stanley(estado, xf, yf, thf):
+    #Configuración actual
+    #Configuración objetivo
+    fx=estado.x+LARGO*np.cos(estado.th) #x frontal
+    fy=estado.y+LARGO*np.sin(estado.th) #y frontal
+    fvec=[-np.cos(estado.th+np.pi/2), -np.sin(estado.th+np.pi/2)]
+    e=np.dot([fx, fy], fvec) #Distancia
+    the=normalizar(thf-estado.th) #Error de cabeceo
+    thd=np.arctan2(k*e, estado.v) #Error de aproximación
+    phi=the+thd #Dirección de las ruedas
+    return e, phi
+
+def normalizar(ang):
+    while ang>np.pi:
+        ang-=2.0*np.pi
+    while ang<-np.pi:
+        ang+=2.0*np.pi
+    return ang
+
+def grafCar(x, y, th, phi, X, Y):
+    if (phi>=MAX_ANG):
+        phi=MAX_ANG
+    Chas=np.matrix([[-POSEJE, (LARGO-POSEJE), (LARGO-POSEJE), -POSEJE, -POSEJE], [ANCHO/2, ANCHO/2, -ANCHO/2, -ANCHO/2, ANCHO/2]])
+    Rfd=np.matrix([[RUE_LAR, -RUE_LAR, -RUE_LAR, RUE_LAR, RUE_LAR], [-RUE_AN-HUELLA, -RUE_AN-HUELLA, RUE_AN-HUELLA, RUE_AN-HUELLA, -RUE_AN-HUELLA]])
+    Rtd=np.copy(Rfd)
+    Rfi=np.copy(Rfd)
+    Rfi[1, :]*=-1
+    Rti=np.copy(Rtd)
+    Rti[1, :]*=-1
+    MR1=np.matrix([[math.cos(th), math.sin(th)], [-math.sin(th), math.cos(th)]])
+    MR2=np.matrix([[math.cos(phi), math.sin(phi)], [-math.sin(phi), math.cos(phi)]])
+    Rfd=(Rfd.T*MR2).T
+    Rfi=(Rfi.T*MR2).T
+    Rfd[0, :]+=DEJE
+    Rfi[0, :]+=DEJE
+    Rfd=(Rfd.T*MR1).T
+    Rfi=(Rfi.T*MR1).T
+    Chas=(Chas.T*MR1).T
+    Rtd=(Rtd.T*MR1).T
+    Rti=(Rti.T*MR1).T
+    Chas[0, :]+=x
+    Chas[1, :]+=y
+    Rfd[0, :]+=x
+    Rfd[1, :]+=y
+    Rfi[0, :]+=x
+    Rfi[1, :]+=y
+    Rtd[0, :]+=x
+    Rtd[1, :]+=y
+    Rti[0, :]+=x
+    Rti[1, :]+=y
+    plt.plot(np.array(Chas[0, :]).flatten(), np.array(Chas[1, :]).flatten(), "-k")
+    plt.plot(np.array(Rfd[0, :]).flatten(), np.array(Rfd[1, :]).flatten(), "-b")
+    plt.plot(np.array(Rfi[0, :]).flatten(), np.array(Rfi[1, :]).flatten(), "-b")
+    plt.plot(np.array(Rtd[0, :]).flatten(), np.array(Rtd[1, :]).flatten(), "-b")
+    plt.plot(np.array(Rti[0, :]).flatten(), np.array(Rti[1, :]).flatten(), "-b")
+    plt.plot(x, y, "*r")
+    plt.plot(X, Y, 'b--')
+    plt.xlim(0, 5)
+    plt.ylim(0, 5)
+    plt.pause(dt)
+
+def main():
+    vel=5.0/3.6 #[m/s]
+    maxT=10.0 #Máximo tiempo de simulación
+    xi=3*random()
+    yi=3*random()
+    thi=2*math.pi*random()-math.pi
+    xf=3*random()
+    yf=3*random()
+    thf=2*math.pi*random()-math.pi
+#    xi=0.0
+ #   yi=5.0
+  #  thi=np.radians(20.0)
+    vi=0.0
+   # xf=3.0
+    #yf=7.2
+    #thf=np.radians(45.0)
+    estado=Estado(x=xi, y=yi, th=thi, v=vi)
+    t=0.0
+    e, phi=stanley(estado, xf, yf, thf)
+    d=np.sqrt((estado.x-xf)**2+(estado.y-yf)**2)
+    X=[estado.x]
+    Y=[estado.y]
+    TH=[estado.th]
+    V=[estado.v]
+    A=[0.0]
+    T=[0.0]
+    D=[d]
+    PHI=[0.0]
+    E=[0.0]
+    while maxT>t:
+        d=np.sqrt((estado.x-xf)**2+(estado.y-yf)**2)
+        a=PID(vel, estado.v)
+        e, phi=stanley(estado, xf, yf, thf)
+        estado.actualizar(a, phi)
+        t+=dt
+        X.append(estado.x)
+        Y.append(estado.y)
+        TH.append(estado.th)
+        V.append(estado.v)
+        A.append(a)
+        T.append(t)
+        D.append(d)
+        PHI.append(phi)
+        E.append(e)
+        plt.cla()
+        plt.arrow(xi, yi, math.cos(thi), math.sin(thi), color='r', width=0.01)
+        plt.arrow(xf, yf, math.cos(thf), math.sin(thf), color='g', width=0.01)
+        grafCar(estado.x, estado.y, estado.th, phi, X, Y)
+#        plt.show()
+ #   plt.figure(2)
+  #  plt.plot(T, E)
+
+if __name__=='__main__':
+    main()
+                
+            
+    
+"""        if animar:
+            plt.cla()
+            plt.plot(X, Y, "-b")
+            plt.pause(dt)"""
+    
+
+    
+"""
+def mover(xi, yi, thi, xf, yf, thf):
+    x=xi
+    y=yi
+    th=thi
+    xx=xf-x
+    yy=yf-y
+    X=[]
+    Y=[]
+    rho=math.sqrt(xx**2+yy**2)
+    while rho>0.001:
+        X.append(x)
+        Y.append(y)
+        xx=xf-x
+        yy=yf-y
+        thh=th
+        rho=math.sqrt(xx**2+yy**2)
+        delta=math.atan2(yy, xx)
+        the=delta-th
+        phi=k*the
+        if (phi>MAX_ANG):
+            phi=MAX_ANG
+        thh=d*math.tan(phi)/LARGO
+        x=x+LARGO/math.tan(phi)*(math.sin(th+thh)-math.sin(th))
+        y=y+LARGO/math.tan(phi)*(-math.cos(th+thh)+math.cos(th))
+        plt.cla()
+        plt.arrow(xi, yi, math.cos(thi), math.sin(thi), color='r', width=0.01)
+        plt.arrow(xf, yf, math.cos(thf), math.sin(thf), color='g', width=0.01)
+        phi=2*math.pi*random()-math.pi
+        grafCar(x, y, th, phi, X, Y)
+        
+def grafCar(x, y, th, phi, X, Y):
+    if (phi>=MAX_ANG):
+        phi=MAX_ANG
+    Chas=np.matrix([[-POSEJE, (LARGO-POSEJE), (LARGO-POSEJE), -POSEJE, -POSEJE], [ANCHO/2, ANCHO/2, -ANCHO/2, -ANCHO/2, ANCHO/2]])
+    Rfd=np.matrix([[RUE_LAR, -RUE_LAR, -RUE_LAR, RUE_LAR, RUE_LAR], [-RUE_AN-HUELLA, -RUE_AN-HUELLA, RUE_AN-HUELLA, RUE_AN-HUELLA, -RUE_AN-HUELLA]])
+    Rtd=np.copy(Rfd)
+    Rfi=np.copy(Rfd)
+    Rfi[1, :]*=-1
+    Rti=np.copy(Rtd)
+    Rti[1, :]*=-1
+    MR1=np.matrix([[math.cos(th), math.sin(th)], [-math.sin(th), math.cos(th)]])
+    MR2=np.matrix([[math.cos(phi), math.sin(phi)], [-math.sin(phi), math.cos(phi)]])
+    Rfd=(Rfd.T*MR2).T
+    Rfi=(Rfi.T*MR2).T
+    Rfd[0, :]+=DEJE
+    Rfi[0, :]+=DEJE
+    Rfd=(Rfd.T*MR1).T
+    Rfi=(Rfi.T*MR1).T
+    Chas=(Chas.T*MR1).T
+    Rtd=(Rtd.T*MR1).T
+    Rti=(Rti.T*MR1).T
+    Chas[0, :]+=x
+    Chas[1, :]+=y
+    Rfd[0, :]+=x
+    Rfd[1, :]+=y
+    Rfi[0, :]+=x
+    Rfi[1, :]+=y
+    Rtd[0, :]+=x
+    Rtd[1, :]+=y
+    Rti[0, :]+=x
+    Rti[1, :]+=y
+    plt.plot(np.array(Chas[0, :]).flatten(), np.array(Chas[1, :]).flatten(), "-k")
+    plt.plot(np.array(Rfd[0, :]).flatten(), np.array(Rfd[1, :]).flatten(), "-b")
+    plt.plot(np.array(Rfi[0, :]).flatten(), np.array(Rfi[1, :]).flatten(), "-b")
+    plt.plot(np.array(Rtd[0, :]).flatten(), np.array(Rtd[1, :]).flatten(), "-b")
+    plt.plot(np.array(Rti[0, :]).flatten(), np.array(Rti[1, :]).flatten(), "-b")
+    plt.plot(x, y, "*r")
+    plt.plot(X, Y, 'b--')
+    plt.xlim(-0.5, 3.5)
+    plt.ylim(-0.5, 3.5)
+    plt.pause(d)
+
+def main():
+    xi=3*random()
+    yi=3*random()
+    thi=2*math.pi*random()-math.pi
+    xf=3*random()
+    yf=3*random()
+    thf=2*math.pi*random()-math.pi
+    mover(xi, yi, thi, xf, yf, thf)
+    plt.show()
+
+if __name__=='__main__':
+    main()
+"""

@@ -1,0 +1,155 @@
+# ----------------
+# User Instructions
+#
+# Implement twiddle as shown in the previous two videos.
+# Your accumulated error should be very small!
+#
+# You don't have to use the exact values as shown in the video
+# play around with different values! This quiz isn't graded just see
+# how low of an error you can get.
+#
+# Try to get your error below 1.0e-10 with as few iterations
+# as possible (too many iterations will cause a timeout).
+#
+# No cheating!
+# ------------
+
+# -*- coding: utf-8 -*-
+import random
+import numpy as np
+import matplotlib.pyplot as plt
+
+class Robot(object):
+    def __init__(self, longi=20.0):
+        """
+        Creates robot and initializes location/orientation to 0, 0, 0.
+        """
+        self.x=0.0
+        self.y=0.0
+        self.th=0.0
+        self.longi=longi
+        self.phiR=0.0 #Ruido en direccion
+        self.dR=0.0 #Ruido en distancia
+        self.phiP=0.0 #Deslizamientoe en direccion
+
+    def set(self, x, y, th):
+        """
+        Sets a robot coordinate.
+        """
+        self.x = x
+        self.y = y
+        self.th=th%(2.0*np.pi)
+
+    def setR(self, phiR, dR):
+        """
+        Sets the noise parameters.
+        """
+        # makes it possible to change the noise parameters
+        # this is often useful in particle filters
+        self.phiR=phiR
+        self.dR=dR
+
+    def setP(self, Fric):
+        """
+        Sets the systematical steering drift parameter
+        """
+        self.phiP=Fric
+
+    def mover(self, phi, distancia, tolerancia=0.001, maxPhi=np.pi/4.0):
+        """
+        steering = front wheel steering angle, limited by max_steering_angle
+        distance = total distance driven, most be non-negative
+        """
+        if phi>maxPhi:
+            phi=maxPhi
+        if phi<-maxPhi:
+            phi=-maxPhi
+        if distancia<0.0:
+            distancia=0.0
+        phi2=random.gauss(phi, self.phiR)
+        distancia2=random.gauss(distancia, self.dR)
+        phi2+=self.phiP
+        giro=np.tan(phi2)*distancia/self.longi
+        if abs(giro)<tolerancia:
+            self.x+=distancia2*np.cos(self.th)
+            self.y+=distancia2*np.sin(self.th)
+            self.th=(self.th+giro)%(2.0*np.pi)
+        else:
+            radio=distancia2/giro
+            cx=self.x-(np.sin(self.th)*radio)
+            cy=self.y+(np.cos(self.th)*radio)
+            self.th=(self.th+giro)%(2.0*np.pi)
+            self.x=cx+(np.sin(self.th)*radio)
+            self.y=cy-(np.cos(self.th)*radio)
+
+    def __repr__(self):
+        return '[x=%.5f y=%.5f orient=%.5f]' % (self.x, self.y, self.orientation)
+
+def robotito():
+    """
+    Resets the robot back to the initial position and drift.
+    You'll want to call this after you call `run`.
+    """
+    robot=Robot()
+    robot.set(0, 1, 0)
+    robot.setP(10/180*np.pi)
+    return robot
+
+
+# NOTE: We use params instead of tau_p, tau_d, tau_i
+def run(robot, params, n=100, v=1.0):
+    xt=[]
+    yt=[]
+    e=0
+    prev=robot.y
+    intcons=0
+    for i in range(2*n):
+        cte=robot.y
+        diff=cte-prev
+        intrcons=cte
+        prev=cte
+        pphi=-params[0]*cte-params[1]*diff-params[2]*intcons
+        robot.mover(pphi, v)
+        xt.append(robot.x)
+        yt.append(robot.y)
+        if i>=n:
+            e+=cte**2
+    return xt, yt, e/n
+
+def girar(tol=0.2):
+    p=[0, 0, 0]
+    dp=[1, 1, 1]
+    robot=robotito()
+    xt, yt, me=run(robot, p)
+    it=0
+    while sum(dp) > tol:
+        print("Iteracion {}, Error = {}".format(it, me))
+        for i in range(len(p)):
+            p[i]+=dp[i]
+            robot=robotito()
+            x, y, e= run(robot, p)
+            if e<me:
+                me=e
+                dp[i]*=1.1
+            else:
+                p[i]-=2*dp[i]
+                robot=robotito()
+                xt, yt, e=run(robot, p)
+                if e<me:
+                    me=e
+                    dp[i]*=1.1
+                else:
+                    p[i]+=dp[i]
+                    dp[i]*=0.9
+        it += 1
+    return p
+
+
+params=girar()
+robot=robotito()
+xt, yt, e=run(robot, params)
+n=len(xt)
+plt.plot(xt, yt, 'g')
+plt.plot(xt, np.zeros(n), 'r')
+plt.show()
+print("break point here")
