@@ -1,0 +1,28 @@
+\documentclass{standalone}
+\usepackage{tikz}
+
+\usetikzlibrary{shapes, arrows, babel}
+\tikzstyle{bloque}=[draw, rectangle, 
+minimum height=3em, minimum width=6em]
+\tikzstyle{suma}=[draw, circle, node distance=1cm]
+\tikzstyle{entrada}=[coordinate]
+\tikzstyle{salida}=[coordinate]
+\tikzstyle{pinstyle}=[pin edge={to-, thin, black}]
+
+\begin{document}
+	\begin{tikzpicture}[auto, node distance=2cm, >=latex']
+		\node[entrada, name=entrada]{};
+		\node[suma, right of=entrada](suma){};
+		\node[bloque, right of=suma](control){Controlador};
+		\node [bloque, right of=control, node distance=3cm](sistema){Robot}; 
+		\draw[->] (control) -- node[name=u] {} (sistema);
+		\node[salida, right of=sistema](salida){};
+		\node[bloque, below of=u](sensor){Extracci\'on de rasgos}; 
+		\draw [draw,->] (entrada) -- node {$X_{d}$} (suma);
+		\draw [->] (suma) -- node {$e$} (control);
+		\draw [->] (sistema) -- node [name=y] {$Y_{d}$}(salida);
+		\draw [->] (y) |- (sensor);
+		\draw [->] (sensor) -| node[pos=0.99] {$-$} 
+		node [near end] {$X$} (suma);
+	\end{tikzpicture}
+\end{document}
